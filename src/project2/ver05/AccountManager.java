@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class AccountManager {
+public class AccountManager implements MenuChoice {
 
 	Connection con;
 	Statement stmt;
@@ -45,29 +45,36 @@ public class AccountManager {
 			System.out.println("2. 입금");
 			System.out.println("3. 출금");
 			System.out.println("4. 전체계좌정보출력");
-			System.out.println("5. 프로그램종료");
+			System.out.println("5. 검색");
+			System.out.println("6. 3X3 퍼즐");
+			System.out.println("7. 프로그램종료");
 			System.out.print("선택:");
 
 			int choice = sc.nextInt();
 			sc.nextLine();
 
 			switch (choice) {
-			case MenuChoice.MAKE:
+			case MAKE:
 				makeAccount();
 				break;
-			case MenuChoice.DEPOSIT:
+			case DEPOSIT:
 				depositMoney();
 				break;
-			case MenuChoice.WITHDRAW:
+			case WITHDRAW:
 				withdrawMoney();
 				break;
-			case MenuChoice.INQUIRE:
+			case INQUIRE:
 				showAccInfo();
 				break;
-			case MenuChoice.EXIT:
+			case SEARCH:
+				searchAcc();
+				break;
+			case GAME:
+				threeByThree();
+				break;
+			case EXIT:
 				System.out.println("시스템 종료");
 				System.exit(0);
-				;
 			}
 
 		}
@@ -178,6 +185,50 @@ public class AccountManager {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void searchAcc() {
+		// 전체계좌정보출력
+//		select문과 like절을 이용하여 구현한다.
+//		Statement  클래스 이용
+		
+		System.out.println("***계좌검색***");
+		try {
+			
+			System.out.print("이름:");
+			String scName = sc.nextLine();
+			stmt = con.createStatement();
+			String query = "SELECT accnum,name,balance FROM banking_tb where name like '%"+ scName +"%'";
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				String accNum = rs.getString("accnum");
+				String name = rs.getString("name");
+				int balance = rs.getInt("balance");
+				Account acc = new Account(accNum, name, balance);
+				acc.showInfo();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void threeByThree() {
+		
+		while(true) {
+			puzzle pz = new puzzle();
+			pz.game(30);
+			System.out.println("재시작하시겠습니까?(y 누르면 재시작, 나머지는 종료)");
+			System.out.print("입력:");
+			String check = sc.nextLine();
+			if(check.equals("y")){
+				System.out.println("재시작하겠습니다.");
+			}
+			else {
+				System.out.println("게임을 종료하겠습니다.");
+				return;
+			}
+			}
 	}
 
 }
