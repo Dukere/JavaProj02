@@ -24,14 +24,14 @@ public class Account implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((accNum == null) ? 0 : accNum.hashCode());
 		return result;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		Account compareAccount = (Account) obj;
-		if (compareAccount.name.equals(this.name)) {
+		if (compareAccount.accNum.equals(this.accNum)) {
 			return true;
 		} else {
 			return false;

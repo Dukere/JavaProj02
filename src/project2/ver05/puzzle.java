@@ -1,4 +1,5 @@
 package project2.ver05;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -7,47 +8,46 @@ interface button {
 }
 
 public class puzzle implements button {
+	
+	boolean exit;
 
 	Scanner sc = new Scanner(System.in);
 
-	String[][] arr = { { ONE, TWO, THREE },
-						{ FOUR, FIVE, SIX },
-						{ SEVEN, EIGHT, X } };
-	String[][] answer ={ { ONE, TWO, THREE },
-						{ FOUR, FIVE, SIX },
-						{ SEVEN, EIGHT, X } };
+	String[][] arr = { { ONE, TWO, THREE }, { FOUR, FIVE, SIX }, { SEVEN, EIGHT, X } };
+	String[][] answer = { { ONE, TWO, THREE }, { FOUR, FIVE, SIX }, { SEVEN, EIGHT, X } };
 	int x = 2, y = 2; // X추적용
 	String temp; // 저장용
-	
 
 	public void game(int num) {
 		mix(num);
-		while(!check()) {
-		show();
-		System.out.println("[이동] a:Left d:Right w:Up s:Down");
-		System.out.println("[종료] x:Exit");
-		System.out.print("키를 입력해주세요 :");
-		String key = sc.nextLine();
-		switch(key) {
-		case "a":
-			left();
-			break;
-		case "d":
-			right();
-			break;
-		case "w":
-			up();
-			break;
-		case "s":
-			down();
-			break;
-		case "x":
-			System.out.println("종료하겠습니다.");
-			return;
-		default:
-			System.out.println("옳바르게 입력해주세요 ..");
-			break;
-		}
+		exit = false;
+		while (!check()) {
+			show();
+			System.out.println("[이동] a:Left d:Right w:Up s:Down");
+			System.out.println("[종료] x:Exit");
+			System.out.print("키를 입력해주세요 :");
+			String key = sc.nextLine();
+			switch (key) {
+			case "a":
+				left();
+				break;
+			case "d":
+				right();
+				break;
+			case "w":
+				up();
+				break;
+			case "s":
+				down();
+				break;
+			case "x":
+				System.out.println("종료하겠습니다.");
+				exit = true;
+				return;
+			default:
+				System.out.println("옳바르게 입력해주세요 ..");
+				break;
+			}
 		}
 		System.out.println("==^^정답입니다^^==");
 	}
@@ -56,9 +56,9 @@ public class puzzle implements button {
 		int check = 0;
 		while (check < num) {
 			int random = (int) (Math.random() * 4);
-			switch(random) {
+			switch (random) {
 			case 0:
-				if (x==0) {
+				if (x == 0) {
 					up();
 					break;
 				}
@@ -66,7 +66,7 @@ public class puzzle implements button {
 				arr[x][y] = X;
 				break;
 			case 1:
-				if (x==2) {
+				if (x == 2) {
 					down();
 					break;
 				}
@@ -74,7 +74,7 @@ public class puzzle implements button {
 				arr[x][y] = X;
 				break;
 			case 2:
-				if (y==0) {
+				if (y == 0) {
 					left();
 					break;
 				}
@@ -82,7 +82,7 @@ public class puzzle implements button {
 				arr[x][y] = X;
 				break;
 			case 3:
-				if (y==2) {
+				if (y == 2) {
 					right();
 					break;
 				}
@@ -94,46 +94,47 @@ public class puzzle implements button {
 		}
 
 	}
-	
-	public void down(){
-		if (x==0) {
+
+	public void down() {
+		if (x == 0) {
 			System.out.println(error());
 			return;
 		}
 		arr[x][y] = arr[--x][y];
 		arr[x][y] = X;
 	}
-	public void up(){
-		if (x==2) {
+
+	public void up() {
+		if (x == 2) {
 			System.out.println(error());
 			return;
 		}
 		arr[x][y] = arr[++x][y];
 		arr[x][y] = X;
 	}
-	public void right(){
-		if (y==0) {
+
+	public void right() {
+		if (y == 0) {
 			System.out.println(error());
 			return;
 		}
 		arr[x][y] = arr[x][--y];
 		arr[x][y] = X;
 	}
-	public void left(){
-		if (y==2) {
+
+	public void left() {
+		if (y == 2) {
 			System.out.println(error());
 			return;
 		}
 		arr[x][y] = arr[x][++y];
 		arr[x][y] = X;
 	}
-	
+
 	public String error() {
-		return "xxxxxxxxxxxxxxxxxxxxxx\n"
-				+ "xxxxxxxx이동불가xxxxxxxxx\n"
-				+ "xxxxxxxxxxxxxxxxxxxxxx\n";
+		return "xxxxxxxxxxxxxxxxxxxxxx\n" + "xxxxxxxx이동불가xxxxxxxxx\n" + "xxxxxxxxxxxxxxxxxxxxxx\n";
 	}
-	
+
 	public void show() {
 		System.out.println("=====");
 		for (int n = 0; n < arr.length; n++) { // 배열의 세로길이
@@ -144,9 +145,9 @@ public class puzzle implements button {
 		}
 		System.out.println("=====");
 	}
-	
+
 	public boolean check() {
-		return Arrays.deepEquals(arr,answer);
+		return Arrays.deepEquals(arr, answer);
 	}
 
 }

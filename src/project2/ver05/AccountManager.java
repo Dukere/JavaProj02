@@ -102,6 +102,7 @@ public class AccountManager implements MenuChoice {
 			psmt.setInt(3, balance);
 			psmt.executeUpdate();
 			System.out.println("데이터 입력이 완료되었습니다.");
+			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -129,6 +130,7 @@ public class AccountManager implements MenuChoice {
 
 			psmt.executeUpdate();
 			System.out.println("입금 완료");
+			System.out.println();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -151,14 +153,13 @@ public class AccountManager implements MenuChoice {
 		sc.nextLine();
 		try {
 			psmt = con.prepareStatement(sql);
-			while (true) {
-				psmt.setInt(1, balance);
-				psmt.setString(2, accnum);
+			
+			psmt.setInt(1, balance);
+			psmt.setString(2, accnum);
 
-				psmt.executeUpdate();
-				System.out.println("출금 완료");
-
-			}
+			psmt.executeUpdate();
+			System.out.println("출금 완료");
+			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -175,30 +176,32 @@ public class AccountManager implements MenuChoice {
 			String query = "SELECT accnum,name,balance FROM banking_tb ";
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
+				System.out.println("------------");
 				String accNum = rs.getString("accnum");
 				String name = rs.getString("name");
 				int balance = rs.getInt("balance");
 				Account acc = new Account(accNum, name, balance);
 				acc.showInfo();
 			}
+			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public void searchAcc() {
 		// 전체계좌정보출력
 //		select문과 like절을 이용하여 구현한다.
 //		Statement  클래스 이용
-		
+
 		System.out.println("***계좌검색***");
 		try {
-			
+
 			System.out.print("이름:");
-			String scName = sc.nextLine();
+			String scnum = sc.nextLine();
 			stmt = con.createStatement();
-			String query = "SELECT accnum,name,balance FROM banking_tb where name like '%"+ scName +"%'";
+			String query = "SELECT accnum,name,balance FROM banking_tb where accnum like '%" + scnum + "%'";
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String accNum = rs.getString("accnum");
@@ -207,28 +210,33 @@ public class AccountManager implements MenuChoice {
 				Account acc = new Account(accNum, name, balance);
 				acc.showInfo();
 			}
+			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void threeByThree() {
-		
-		while(true) {
+
+		while (true) {
 			puzzle pz = new puzzle();
-			pz.game(30);
+			pz.game(5);
+			if (pz.exit){
+				return;
+			}
 			System.out.println("재시작하시겠습니까?(y 누르면 재시작, 나머지는 종료)");
 			System.out.print("입력:");
 			String check = sc.nextLine();
-			if(check.equals("y")){
+			if (check.equals("y")) {
 				System.out.println("재시작하겠습니다.");
 			}
-			else {
+			else
+			{
 				System.out.println("게임을 종료하겠습니다.");
 				return;
 			}
-			}
+		}
 	}
 
 }

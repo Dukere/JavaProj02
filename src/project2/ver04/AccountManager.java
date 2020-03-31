@@ -82,6 +82,8 @@ public class AccountManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.out.println("저장 실패 . . .");
+				System.out.println();
+
 			}
 		}
 	}
@@ -102,12 +104,16 @@ public class AccountManager {
 				acc.remove(ac);
 				acc.add(ac);
 				System.out.println("데이터 입력이 완료되었습니다.");
+				System.out.println();
+
 				return;
 			} else if (check == 2) {
 				return;
 			}
 		}
 		System.out.println("데이터 입력이 완료되었습니다.");
+		System.out.println();
+
 	}
 
 	public void makeAccount() {
@@ -160,10 +166,14 @@ public class AccountManager {
 			sc.nextLine();
 			if (money < 0) {
 				System.out.println("음수를 입금할 수 없습니다.");
+				System.out.println();
+
 				return;
 			}
 			if (money % 500 != 0) {
 				System.out.println("500원 단위로 입력하세요.");
+				System.out.println();
+
 				return;
 			}
 			Iterator<Account> itr = acc.iterator();
@@ -183,9 +193,13 @@ public class AccountManager {
 		} catch (InputMismatchException e) {
 			System.out.println("숫자만 입력하세요");
 			sc.nextLine();
+			System.out.println();
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			System.out.println("찾는 데이터가 없습니다.");
+			System.out.println();
+
 		}
 	}
 
@@ -202,10 +216,14 @@ public class AccountManager {
 			sc.nextLine();
 			if (money < 0) {
 				System.out.println("음수를 출금할 수 없습니다.");
+				System.out.println();
+
 				return;
 			}
 			if (money % 1000 != 0) {
 				System.out.println("1000원 단위로 입력하세요.");
+				System.out.println();
+
 				return;
 			}
 			Iterator<Account> itr = acc.iterator();
@@ -224,14 +242,22 @@ public class AccountManager {
 							ac.balance = 0;
 						} else if (yesNo.equals("NO")) {
 							System.out.println("취소됐습니다.");
+							System.out.println();
+
 							return;
 						} else {
 							System.out.println("똑바로 입력하세요");
+							System.out.println();
+
 							return;
 						}
 					}
+					else {
 					ac.balance -= money;
+					}
 					System.out.println("출금완료");
+					System.out.println();
+
 					check = 1;
 				}
 			}
@@ -243,9 +269,12 @@ public class AccountManager {
 		} catch (InputMismatchException e) {
 			System.out.println("맞게 입력하세요");
 			sc.nextLine();
+			System.out.println();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			System.out.println("찾는 데이터가 없습니다.");
+			System.out.println();
+
 		}
 	}
 
@@ -254,11 +283,15 @@ public class AccountManager {
 		System.out.println("***계좌정보출력***");
 		try {
 			for (Account ac : acc) {
+				System.out.println("-------------");
 				ac.showInfo();
 			}
 			System.out.println("데이터 출력이 완료되었습니다.");
+			System.out.println();
+
 		} catch (NullPointerException e) {
 			System.out.println("데이터가 없습니다.");
+			System.out.println();
 		}
 
 	}
