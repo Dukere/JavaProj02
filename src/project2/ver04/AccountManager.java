@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class AccountManager {
+public class AccountManager implements MenuChoice {
 
 	Scanner sc = new Scanner(System.in);
 	HashSet<Account> acc = new HashSet<Account>(50);
@@ -18,7 +18,9 @@ public class AccountManager {
 
 	public AccountManager() {
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/project2/ver04/BankingBook.obj"));
+			ObjectInputStream in = 
+					new ObjectInputStream(
+							new FileInputStream("src/project2/ver04/BankingBook.obj"));
 			while (true) {
 				Account inData = (Account) in.readObject();
 				if (inData == null)
@@ -52,19 +54,19 @@ public class AccountManager {
 					throw ex;
 				}
 				switch (choice) {
-				case MenuChoice.MAKE:
+				case MAKE:
 					makeAccount();
 					break;
-				case MenuChoice.DEPOSIT:
+				case DEPOSIT:
 					depositMoney();
 					break;
-				case MenuChoice.WITHDRAW:
+				case WITHDRAW:
 					withdrawMoney();
 					break;
-				case MenuChoice.INQUIRE:
+				case INQUIRE:
 					showAccInfo();
 					break;
-				case MenuChoice.EXIT:
+				case EXIT:
 					System.out.println("시스템 종료");
 					ObjectOutputStream out = new ObjectOutputStream(
 							new FileOutputStream("src/project2/ver04/BankingBook.obj"));
@@ -226,6 +228,7 @@ public class AccountManager {
 
 				return;
 			}
+			
 			Iterator<Account> itr = acc.iterator();
 
 			while (itr.hasNext()) {
@@ -251,9 +254,8 @@ public class AccountManager {
 
 							return;
 						}
-					}
-					else {
-					ac.balance -= money;
+					} else {
+						ac.balance -= money;
 					}
 					System.out.println("출금완료");
 					System.out.println();

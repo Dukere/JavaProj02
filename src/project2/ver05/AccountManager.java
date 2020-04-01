@@ -201,7 +201,8 @@ public class AccountManager implements MenuChoice {
 			System.out.print("이름:");
 			String scnum = sc.nextLine();
 			stmt = con.createStatement();
-			String query = "SELECT accnum,name,balance FROM banking_tb where accnum like '%" + scnum + "%'";
+			String query = "SELECT accnum,name,balance FROM banking_tb "
+							+" where accnum like '%" + scnum + "%'";
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String accNum = rs.getString("accnum");

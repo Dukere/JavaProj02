@@ -1,6 +1,6 @@
 package project2.ver04;
 
-public class HighCreditAccount extends Account{
+public class HighCreditAccount extends Account implements CustomSpecialRate{
 	
 	int interest;
 	String credit;
@@ -36,13 +36,13 @@ public class HighCreditAccount extends Account{
 		int credit=0;
 		switch(this.credit) {
 		case "A":
-			credit = CustomSpecialRate.A;
+			credit = A;
 			break;
 		case "B":
-			credit = CustomSpecialRate.B;
+			credit = B;
 			break;
 		case "C":
-			credit = CustomSpecialRate.C;
+			credit = C;
 			break;
 		}
 		balance = balance + (balance*interest/100)
