@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 interface button {
-	String ONE = "1", TWO = "2", THREE = "3", FOUR = "4", FIVE = "5", SIX = "6", SEVEN = "7", EIGHT = "8", X = "X";
+	String ONE = "1",  TWO = "2", THREE = "3", FOUR = "4", FIVE = "5", SIX = "6", SEVEN = "7", EIGHT = "8", X = "X";
 }
 
 public class puzzle implements button {
